@@ -9,7 +9,7 @@ app.add_middleware(
         # "http://localhost:5173",
         "*"
         ],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -17,4 +17,4 @@ app.add_middleware(
 @app.get("/")
 async def root():
     print('********************************* Caling from frontend')
-    return {"message": "Hello FastAPI!"}
+    return {"message": "Hello"}
