@@ -6,7 +6,7 @@
 const message = ref('')
 
 const showMsg = async () => {
-    const response = await fetch('http://127.0.0.1:8000', { 
+    const response = await fetch('http://127.0.0.1:8000/', { 
       credentials: 'include' // for google's IDX only.
     })
     const data = await response.json()
@@ -18,8 +18,8 @@ const showMsg = async () => {
 <template>
   <div>
       
-      <button @click="showMsg">Show Message</button>
-      <h1 v-if="message.hello">{{ $t('message.hello') }}</h1>
+      <button @click="showMsg">Show message</button>
+      <h1 v-if="message">{{ $t(`message.${message}`) }}</h1>
 
       <nav>
       <RouterLink to="/">Home</RouterLink> | 

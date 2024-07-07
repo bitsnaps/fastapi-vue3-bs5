@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-next/dist/bootstrap-vue-next.css'
 
 const i18n = createI18n({
-    locale: 'en',
+    locale: 'fr',
     fallbackLocale: 'fr',
     messages: {
       en: {
