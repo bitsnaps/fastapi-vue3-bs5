@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { formatDate } from '@vueuse/core'
+import { RouterView } from 'vue-router';
 const message = ref('')
 
-
 const postRequest = async () => {
-
   try {
     // fetch request using POST
     const response = await fetch(`${import.meta.env.VITE_API_URL}/chat`, {
@@ -40,19 +39,12 @@ const showMsg = async () => {
 </script>
 
 <template>
-  <div>
-
-    <BButton variant="primary" @click="postRequest">Chat</BButton>
-
-    <BButton variant="success" @click="showMsg">Show message</BButton>
-
-    <h1 v-if="message">{{ message }}</h1>
-
-    <nav>
+  <div class="home">
+    <!-- nav>
       <RouterLink to="/">Home</RouterLink> |
       <RouterLink to="/about">About</RouterLink>
-    </nav>
-    <HelloWorld :msg="message" />
+  </nav -->
+    <RouterView />
   </div>
 </template>
 
