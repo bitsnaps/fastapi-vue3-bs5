@@ -1,0 +1,18 @@
+modules = ["vue-node-20", "nodejs-20", "web", "nix", "python-3.11"]
+
+run = "pnpm run dev"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "pnpm run dev"]
+
+[[ports]]
+localPort = 5173
+externalPort = 80
+
+[[ports]]
+localPort = 8000
+externalPort = 3000
+exposeLocalhost = true
