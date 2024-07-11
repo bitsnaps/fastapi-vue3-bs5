@@ -7,9 +7,17 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AIMessage: typeof import('./src/components/AIMessage.vue')['default']
     BButton: typeof import('bootstrap-vue-next')['BButton']
+    BToastOrchestrator: typeof import('bootstrap-vue-next')['BToastOrchestrator']
+    ChatInput: typeof import('./src/components/ChatInput.vue')['default']
+    ChatMessage: typeof import('./src/components/ChatMessage.vue')['default']
+    ChatMessages: typeof import('./src/components/ChatMessages.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    ProfileIcon: typeof import('./src/components/ProfileIcon.vue')['default']
+    ProfileIcone: typeof import('./src/components/ProfileIcone.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    UserMessage: typeof import('./src/components/UserMessage.vue')['default']
   }
 }

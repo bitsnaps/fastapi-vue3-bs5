@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { formatDate } from '@vueuse/core'
-import { RouterView } from 'vue-router';
+import { RouterView } from 'vue-router'
+
+
 const message = ref('')
 
 const postRequest = async () => {
@@ -39,6 +41,7 @@ const showMsg = async () => {
 </script>
 
 <template>
+  <BToastOrchestrator />
   <div class="home">
     <!-- nav>
       <RouterLink to="/">Home</RouterLink> |
