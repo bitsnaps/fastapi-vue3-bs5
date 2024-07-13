@@ -37,8 +37,7 @@ async def generate_completion(message: str, use_agents: bool,
             description=
             "You help user finding the best answer to his question.",
             show_tool_calls=False,
-            llm=OpenAIChat(model=MODEL_NAME, max_tokens=3000, temperature=0.7),
-            run_id=None)
+            llm=OpenAIChat(model=MODEL_NAME, max_tokens=3000, temperature=0.7))
         answer = assistant.run(message, stream=False)
     else:
         chat_completion = client.chat.completions.create(
