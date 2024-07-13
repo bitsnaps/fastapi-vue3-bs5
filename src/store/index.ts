@@ -1,15 +1,16 @@
-// stores/counter.js
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
+import { Message } from "../types";
 
-export const useCounterStore = defineStore('counter', {
+export const useMessagesStore = defineStore("messages", {
   state: () => {
-    return { count: 0 }
+    return { messages: <Message[]>[] };
   },
-  // could also be defined as
-  // state: () => ({ count: 0 })
   actions: {
-    increment() {
-      this.count++
+    addSystemMessage(message: Message) {
+      this.messages.push(message);
+    },
+    addUserMessage(message: Message) {
+      this.messages.push(message);
     },
   },
-})
+});

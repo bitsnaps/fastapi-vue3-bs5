@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useMessagesStore } from '../store'
+
+const messagesStore = useMessagesStore()
 
 </script>
 
@@ -7,14 +10,22 @@
 
     <div class="chat-list flex-grow-1 p-3 overflow-auto">
 
-      <AIMessage message="Hello! How can I help you today?" />
+      <div v-for="message in messagesStore.messages" :key="JSON.stringify(message)">
 
-      <UserMessage message="I'd like to know more about artificial intelligence.Can you explain it to me ?" />
+        <UserMessage v-if="message['role'] == 'user'" :message="message['content']" />
 
-      <AIMessage message="Certainly! Artificial Intelligence (AI) refers to the development of computer systems
+        <AIMessage v-if="message['role'] == 'system'" :message="message['content']" />
+
+      </div>
+
+      <!-- AIMessage message="Hello! How can I help you today?" / -->
+
+      <!-- UserMessage message="I'd like to know more about artificial intelligence.Can you explain it to me ?" / -->
+
+      <!-- AIMessage message="Certainly! Artificial Intelligence (AI) refers to the development of computer systems
         that can perform tasks that typically require human intelligence. These tasks include learning,
         problem-solving, perception, and language understanding. AI systems are designed to analyze data,
-        recognize patterns, and make decisions or predictions based on that information." />
+        recognize patterns, and make decisions or predictions based on that information." /-->
 
     </div> <!-- . flex-grow -->
 

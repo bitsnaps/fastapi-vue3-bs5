@@ -1,29 +1,47 @@
 <script setup lang="ts">
-import { useToast } from 'bootstrap-vue-next'
+import { ref } from 'vue'
+import { useApi } from '../services/api.ts'
+import { Message } from '../types'
+import { useMessagesStore } from '../store'
+const { addUserMessage, addSystemMessage, isMessageValid } = useApi()
+
+//import { useToast } from 'bootstrap-vue-next'
 
 //const { show } = useToast()
 
+const message = ref('')
+const prompt = ref('')
+
+
+const messagesStore = useMessagesStore()
+
+// Create some dummy messages:
+messagesStore.messages.push({ role: 'user', content: 'Hello!' })
+messagesStore.messages.push({
+  role: 'system', content: `**Hi**
+
+there! How can I help you today?` })
+
 const sendMessage = async () => {
-  try {
 
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/chat`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        "message": 'Tell me a joke.'
-      })
-    })
+  messagesStore.messages.push({
+    role: 'user',
+    content: prompt.value
+  })
 
-    if (response.ok) {
-      const data = await response.json()
-      alert(data.message)
-    }
-  } catch (e) {
-    console.error(e)
+  const answer = await addSystemMessage(prompt.value)
+  if (answer) {
+    messagesStore.messages.push({
+      role: "system",
+      content: answer
+    });
+    message.value = answer
+    prompt.value = ''
   }
+}
 
+const clearMessages = () => {
+  messagesStore.messages.splice(0, messagesStore.messages.length)
 }
 
 </script>
@@ -31,8 +49,9 @@ const sendMessage = async () => {
 <template>
   <div class="p-3 bg-white border-top">
     <form class="d-flex" @submit.prevent="sendMessage">
-      <input type="text" class="form-control me-2" placeholder="Type your message...">
-      <BButton type="submit" variant="info"> Send </BButton>
+      <BFormInput v-model="prompt" placeholder="Type your message..." class="me-2" />
+      <BButton variant="warning" class="me-1" @click="clearMessages"> Clear </BButton>
+      <BButton type="submit" variant="info" :disabled="!isMessageValid(prompt)"> Send </BButton>
     </form>
   </div>
 </template >
