@@ -3,6 +3,8 @@ from openai import OpenAI
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+from phi.assistant import Assistant
+from phi.llm.openai import OpenAIChat
 
 load_dotenv()
 
@@ -27,18 +29,30 @@ app.add_middleware(
 )
 
 
-async def generate_completion(prompt: str):
-    chat_completion = client.chat.completions.create(
-        messages=[{
-            "role": "user",
-            "content": prompt,
-        }],
-        model=MODEL_NAME,
-        # temperature=0.7,
-        # max_tokens=500,
-    )
-
-    return chat_completion.choices[0].message.content
+async def generate_completion(message: str, use_agents: bool,
+                              stream_response: bool):
+    answer = None
+    if use_agents:
+        assistant = Assistant(
+            description=
+            "You help user finding the best answer to his question.",
+            show_tool_calls=False,
+            llm=OpenAIChat(model=MODEL_NAME, max_tokens=3000, temperature=0.7),
+            run_id=None)
+        answer = assistant.run(message, stream=False)
+    else:
+        chat_completion = client.chat.completions.create(
+            messages=[{
+                "role": "user",
+                "content": message,
+            }],
+            model=MODEL_NAME,
+            # temperature=0.7,
+            # max_tokens=500,
+        )
+        print(f"use_agents: {use_agents}, stream_response: {stream_response}")
+        answer = chat_completion.choices[0].message.content
+    return answer
 
 
 @app.get("/")
@@ -51,5 +65,6 @@ async def chat_completion(request: Request):
     data = await request.json()
     print(f"Prompt: {data['message']}")
     print(f"****** pass POST: {data}")
-    response = await generate_completion(data['message'])
+    response = await generate_completion(data['message'], data['useAgents'],
+                                         data['streamResponse'])
     return response
