@@ -1,10 +1,14 @@
 import os
+import sys
+import subprocess
 from openai import OpenAI
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from phi.assistant import Assistant
 from phi.llm.openai import OpenAIChat
+from phi.tools.duckduckgo import DuckDuckGo
+from phi.tools.yfinance import YFinanceTools
 
 load_dotenv()
 
@@ -37,7 +41,15 @@ async def generate_completion(message: str, use_agents: bool,
             description=
             "You help user finding the best answer to his question.",
             show_tool_calls=False,
-            llm=OpenAIChat(model=MODEL_NAME, max_tokens=3000, temperature=0.7))
+            llm=OpenAIChat(model=MODEL_NAME, max_tokens=3000, temperature=0.7),
+            tools=[
+                DuckDuckGo(),
+                YFinanceTools(stock_price=True,
+                              analyst_recommendations=True,
+                              company_info=True,
+                              company_news=True)
+            ],
+            run_id=None)
         answer = assistant.run(message, stream=False)
     else:
         chat_completion = client.chat.completions.create(
