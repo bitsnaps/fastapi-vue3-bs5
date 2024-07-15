@@ -30,7 +30,43 @@ const sendMessage = async () => {
     content: prompt.value
   })
 
-  const answer = await addSystemMessage(prompt.value.trim(), useAgents.value, streamResponse.value)
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/chat`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    },
+    body: JSON.stringify({
+      prompt: prompt.value
+    }),
+  })
+  console.log(response)
+  const reader = response.body?.pipeThrough(new TextDecoderStream()).getReader();
+  if (!reader) return;
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    // eslint-disable-next-line no-await-in-loop
+    const { value, done } = await reader.read();
+    console.log(`value: ${value}, done: ${done}`)
+    
+    if (done) break;
+    let dataDone = false;
+    const arr = value.split('\n');
+    arr.forEach((data) => {
+      if (data.trim().length === 0) return; // ignore empty message
+      if (data.startsWith(':')) return; // ignore sse comment message
+      message.value += data.slice(6)
+    });
+    if (dataDone) break;    
+  }
+
+  messagesStore.messages.push({
+    role: "system",
+    content: message.value
+  });
+
+  
+  /*const answer = await addSystemMessage(prompt.value.trim(), useAgents.value, streamResponse.value)
   if (answer) {
     messagesStore.messages.push({
       role: "system",
@@ -38,7 +74,7 @@ const sendMessage = async () => {
     });
     message.value = answer
     prompt.value = ''
-  }
+  }*/
 }
 
 const clearMessages = () => {
@@ -51,6 +87,10 @@ const clearMessages = () => {
   <div class="p-3 bg-white border-top">
     <div class="row">
       <div class="col-md-12">
+
+        <BAlert variant="info" :model-value="true">
+          <p>{{ message }}</p>
+          </BAlert>
 
         <form class="d-flex" @submit.prevent="sendMessage">
           <BFormInput v-model="prompt" placeholder="Type your message..." class="me-2" />

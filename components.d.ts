@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AIMessage: typeof import('./src/components/AIMessage.vue')['default']
+    BAlert: typeof import('bootstrap-vue-next')['BAlert']
     BButton: typeof import('bootstrap-vue-next')['BButton']
     BFormInput: typeof import('bootstrap-vue-next')['BFormInput']
     BToastOrchestrator: typeof import('bootstrap-vue-next')['BToastOrchestrator']
