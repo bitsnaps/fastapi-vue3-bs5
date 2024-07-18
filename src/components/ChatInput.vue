@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useApi } from '../services/api.ts'
-import { Message } from '../types'
+//import { Message } from '../types'
 import { useMessagesStore } from '../store'
 import { BFormCheckbox } from 'bootstrap-vue-next';
-const { addSystemMessage, isMessageValid } = useApi()
+const { /*addSystemMessage, */isMessageValid } = useApi()
 
 //import { useToast } from 'bootstrap-vue-next'
 
@@ -48,7 +48,7 @@ const sendMessage = async () => {
     // eslint-disable-next-line no-await-in-loop
     const { value, done } = await reader.read();
     console.log(`value: ${value}, done: ${done}`)
-    
+
     if (done) break;
     let dataDone = false;
     const arr = value.split('\n');
@@ -57,7 +57,7 @@ const sendMessage = async () => {
       if (data.startsWith(':')) return; // ignore sse comment message
       message.value += data.slice(6)
     });
-    if (dataDone) break;    
+    if (dataDone) break;
   }
 
   messagesStore.messages.push({
@@ -65,7 +65,7 @@ const sendMessage = async () => {
     content: message.value
   });
 
-  
+
   /*const answer = await addSystemMessage(prompt.value.trim(), useAgents.value, streamResponse.value)
   if (answer) {
     messagesStore.messages.push({
@@ -90,7 +90,7 @@ const clearMessages = () => {
 
         <BAlert variant="info" :model-value="true">
           <p>{{ message }}</p>
-          </BAlert>
+        </BAlert>
 
         <form class="d-flex" @submit.prevent="sendMessage">
           <BFormInput v-model="prompt" placeholder="Type your message..." class="me-2" />

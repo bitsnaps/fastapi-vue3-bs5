@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+/*
 import { formatDate } from '@vueuse/core'
 import { RouterView } from 'vue-router'
-
 
 const message = ref('')
 
@@ -37,7 +36,7 @@ const showMsg = async () => {
   const data = await response.json()
   message.value = data.message
 }
-
+*/
 </script>
 
 <template>

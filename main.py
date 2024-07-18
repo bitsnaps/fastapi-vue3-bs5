@@ -5,6 +5,8 @@ from openai import OpenAI, AsyncOpenAI
 from fastapi import FastAPI, Request, Query, HTTPException
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 # from phi.assistant import Assistant
 # from phi.llm.openai import OpenAIChat
@@ -14,7 +16,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"],
-                base_url=os.environ["OPENAI_BASE_URL"])
+                     base_url=os.environ["OPENAI_BASE_URL"])
 
 SUPPORTED_MODELS = [
     "llama3-70b-8192",
@@ -26,13 +28,14 @@ SUPPORTED_MODELS = [
 MODEL_NAME = SUPPORTED_MODELS[0]
 
 app = FastAPI()
+app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173"
         # "*"
-        ],
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -72,6 +75,7 @@ async def generate_completion(message: str, use_agents: bool,
         answer = chat_completion.choices[0].message.content
     return answer
 
+
 async def get_response_openai(prompt: str):
     chat_completion = await client.chat.completions.create(
         messages=[{
@@ -91,7 +95,8 @@ async def get_response_openai(prompt: str):
 @app.post("/chat")
 async def chat_completion(request: Request):
     data = await request.json()
-    return StreamingResponse(get_response_openai(data['prompt']), media_type="text/event-stream")
+    return StreamingResponse(get_response_openai(data['prompt']),
+                             media_type="text/event-stream")
 
 
 # @app.post("/chat")
@@ -102,6 +107,13 @@ async def chat_completion(request: Request):
 #                                          data['streamResponse'])
 #     return response
 
+#@app.get("/")
+#async def root():
+#    return {"message": "hello"}
+
+
 @app.get("/")
 async def root():
-    return {"message": "hello"}
+    return FileResponse('dist/index.html')
+    # Use this in case you put index.html in the root directoy
+    #return FileResponse('index.html')
