@@ -11,7 +11,7 @@ const { /*addSystemMessage, */isMessageValid } = useApi()
 //const { show } = useToast()
 
 const message = ref('')
-const prompt = ref('')
+const prompt = ref('Tell me a joke')
 const useAgents = ref(false)
 const streamResponse = ref(false)
 
@@ -40,24 +40,29 @@ const sendMessage = async () => {
       prompt: prompt.value
     }),
   })
-  console.log(response)
+  if (!response.ok) {
+    console.log(response)
+    message.value = 'An error has occured, please try again.'
+    return
+  }
   const reader = response.body?.pipeThrough(new TextDecoderStream()).getReader();
   if (!reader) return;
   // eslint-disable-next-line no-constant-condition
   while (true) {
     // eslint-disable-next-line no-await-in-loop
     const { value, done } = await reader.read();
-    console.log(`value: ${value}, done: ${done}`)
+    console.log(`value: ${value}`)
 
     if (done) break;
-    let dataDone = false;
-    const arr = value.split('\n');
-    arr.forEach((data) => {
-      if (data.trim().length === 0) return; // ignore empty message
-      if (data.startsWith(':')) return; // ignore sse comment message
-      message.value += data.slice(6)
-    });
-    if (dataDone) break;
+    const lines = value.split('\n');
+    for (const line of lines) {
+      if (line.startsWith('data: ')) {
+        if (line.trim().length === 0) return; // ignore empty message
+        if (line.startsWith(':')) return; // ignore sse comment message
+        message.value += line.slice(6)
+      }
+    };
+    message.value += '\n'
   }
 
   messagesStore.messages.push({
@@ -95,7 +100,7 @@ const clearMessages = () => {
         <form class="d-flex" @submit.prevent="sendMessage">
           <BFormInput v-model="prompt" placeholder="Type your message..." class="me-2" />
           <BButton variant="warning" class="me-1" @click="clearMessages"> Clear </BButton>
-          <BButton type="submit" variant="info" :disabled="!isMessageValid(prompt)"> Send </BButton>
+          <BButton type="submit" variant="success" :disabled="!isMessageValid(prompt)"> Send </BButton>
         </form>
 
       </div><!-- .col -->

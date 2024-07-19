@@ -47,3 +47,4 @@ phidata==2.4.25
 openai==1.35.10
 duckduckgo_search==6.1.9
 yfinance==0.2.40
+starlette

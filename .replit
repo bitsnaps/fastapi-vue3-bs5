@@ -1,6 +1,6 @@
 modules = ["vue-node-20", "nodejs-20", "web", "nix", "python-3.11"]
 
-run = "pip uninstall phi -y && pip install -q yfinance && pnpm run dev"
+run = "pip uninstall phi -y && pip install -q yfinance && pnpm run api"
 
 [nix]
 channel = "stable-24_05"
