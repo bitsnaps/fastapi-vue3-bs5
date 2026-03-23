@@ -1,0 +1,44 @@
+{
+    "title": "SQL Standards Book",
+    "tasks": [
+        {
+            "name": "Research SQL Standards",
+            "description": "Find relevant information about SQL standards",
+            "taskType": "COMPLEX",
+            "assignedAssistant": "Research Assistant",
+            "prompt": "Search for SQL standards, including SQL-86, SQL-89, SQL-92, SQL:1999, SQL:2003, SQL:2006, SQL:2008, SQL:2011, SQL:2016, and SQL:2019. Gather information about the key features and changes in each standard.",
+            "requiredTools": [
+                "DuckDuckGo",
+                "SerpApi"
+            ],
+            "temperature": "0.7"
+        },
+        {
+            "name": "Organize SQL Standards Information",
+            "description": "Organize the gathered information into a structured format",
+            "taskType": "SIMPLE",
+            "assignedAssistant": "Writer Assistant",
+            "prompt": "Take the gathered information and organize it into a structured format, including an introduction, history of SQL standards, key features of each standard, and a conclusion.",
+            "requiredTools": null,
+            "temperature": "0.5"
+        },
+        {
+            "name": "Write SQL Standards Book",
+            "description": "Write the book about SQL standards",
+            "taskType": "COMPLEX",
+            "assignedAssistant": "Writer Assistant",
+            "prompt": "Using the organized information, write a comprehensive book about SQL standards, including examples, use cases, and best practices.",
+            "requiredTools": null,
+            "temperature": "0.8"
+        },
+        {
+            "name": "Review and Edit SQL Standards Book",
+            "description": "Review and edit the written book",
+            "taskType": "SIMPLE",
+            "assignedAssistant": "Writer Assistant",
+            "prompt": "Review the written book for grammar, punctuation, and consistency. Edit the book to ensure it is error-free and easy to read.",
+            "requiredTools": null,
+            "temperature": "0.5"
+        }
+    ]
+}

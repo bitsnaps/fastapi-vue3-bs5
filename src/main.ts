@@ -12,12 +12,22 @@ import "bootstrap-vue-next/dist/bootstrap-vue-next.css";
 
 const pinia = createPinia();
 const i18n = createI18n({
+<<<<<<< Updated upstream
   locale: "en",
   fallbackLocale: "en",
   messages: {
     en: {
       message: {
         hello: "Hello",
+=======
+    locale: 'en',
+    fallbackLocale: 'en',
+    messages: {
+      en: {
+        message: {
+          hello: 'Hello'
+        }
+>>>>>>> Stashed changes
       },
     },
     fr: {

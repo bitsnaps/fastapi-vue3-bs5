@@ -1,4 +1,5 @@
 <script setup lang="ts">
+<<<<<<< Updated upstream
 /*
 import { formatDate } from '@vueuse/core'
 import { RouterView } from 'vue-router'
@@ -47,6 +48,23 @@ const showMsg = async () => {
       <RouterLink to="/about">About</RouterLink>
   </nav -->
     <RouterView />
+=======
+
+// const message = ref('')
+// const showMsg = async () => {
+//     const response = await fetch('http://127.0.0.1:8000/', { 
+//       credentials: 'include' // for google's IDX only.
+//     })
+//     const data = await response.json()
+//     message.value = data.message
+// }
+</script>
+
+<template>
+  <div>
+    <Navbar />
+    <Sidebar />
+>>>>>>> Stashed changes
   </div>
 </template>
 

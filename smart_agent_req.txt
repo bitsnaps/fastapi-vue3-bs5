@@ -1,0 +1,23 @@
+# var env
+python-dotenv
+# for openai compatible api
+openai
+# for groq
+groq
+# phidata core
+phidata
+# for search
+duckduckgo-search
+# news research
+newspaper4k
+lxml_html_clean
+# Yahoo finance
+yfinance
+# for RAG
+pgvector
+pypdf
+psycopg[binary]
+sqlalchemy
+# Search engine for AI
+exa_py
+chromadb

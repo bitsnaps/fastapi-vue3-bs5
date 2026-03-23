@@ -10,6 +10,7 @@ declare module 'vue' {
     AIMessage: typeof import('./src/components/AIMessage.vue')['default']
     BAlert: typeof import('bootstrap-vue-next')['BAlert']
     BButton: typeof import('bootstrap-vue-next')['BButton']
+<<<<<<< Updated upstream
     BFormInput: typeof import('bootstrap-vue-next')['BFormInput']
     BToastOrchestrator: typeof import('bootstrap-vue-next')['BToastOrchestrator']
     ChatInput: typeof import('./src/components/ChatInput.vue')['default']
@@ -20,5 +21,14 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     UserMessage: typeof import('./src/components/UserMessage.vue')['default']
+=======
+    BForm: typeof import('bootstrap-vue-next')['BForm']
+    BInput: typeof import('bootstrap-vue-next')['BInput']
+    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    Navbar: typeof import('./src/components/Navbar.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
+    Sidebar: typeof import('./src/components/Sidebar.vue')['default']
+>>>>>>> Stashed changes
   }
 }

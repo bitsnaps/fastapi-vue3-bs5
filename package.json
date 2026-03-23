@@ -1,10 +1,10 @@
 {
-  "name": "fastapi-vue3-bs5",
+  "name": "crm_node",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "ui": "vite --host",
+    "ui": "vite --host 0.0.0.0",
     "api": "uvicorn main:app --reload --port 8000",
     "dev": "concurrently \"pnpm run api\" \"pnpm run ui\"",
     "build": "vue-tsc && vite build",
@@ -16,9 +16,14 @@
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "bootstrap-vue-next": "^0.22.1",
+<<<<<<< Updated upstream
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.0.1",
     "markdown-it-highlightjs": "^4.1.0",
+=======
+    "express": "^4.21.0",
+    "mongoose": "^8.7.0",
+>>>>>>> Stashed changes
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
     "vue-i18n": "^9.13.1",
@@ -35,5 +40,9 @@
     "vite": "^5.2.0",
     "vitest": "^1.6.0",
     "vue-tsc": "^2.0.6"
-  }
+  },
+  "description": "This template should help get you started developing with [FastAPI](https://fastapi.tiangolo.com/), Vue 3, Bootstrap 5 ([bootstrap-vue-next](https://bootstrap-vue-next.github.io/bootstrap-vue-next/)) using TypeScript in Vite.",
+  "main": "index.js",
+  "author": "",
+  "license": "MIT"
 }

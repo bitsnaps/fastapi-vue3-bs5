@@ -43,8 +43,29 @@ python-multipart==0.0.9
 # uvloop==0.19.0
 # watchfiles==0.22.0
 # websockets==12.0
+<<<<<<< Updated upstream
 phidata==2.4.25
 openai==1.35.10
 duckduckgo_search==6.1.9
 yfinance==0.2.40
 starlette
+=======
+#phidata==2.5.33 # old
+agno==1.1.7
+openai==1.47.0
+duckduckgo_search==6.3.7
+# Yahoo finance (YFinanceTools)
+yfinance==0.2.54
+# for search
+exa_py==1.7.0
+# for long-term memory retrieval
+chromadb==0.5.7
+# deprecated (it uses multiple search engines, it's used by SerpApiTools in journalist/team example)
+#google-search-results==2.4.2
+# for dealing with DB (SQLite...)
+sqlalchemy==2.0.36
+# spider for web scraping
+spider-client==0.0.70
+# for output parse and typing
+dataclass-wizard==0.32.0
+>>>>>>> Stashed changes

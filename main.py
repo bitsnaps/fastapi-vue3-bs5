@@ -1,9 +1,15 @@
 import os
+<<<<<<< Updated upstream
 import sys
 import subprocess
 from openai import OpenAI, AsyncOpenAI
 from fastapi import FastAPI, Request, Query, HTTPException
 from fastapi.responses import StreamingResponse
+=======
+from openai import OpenAI
+from fastapi import FastAPI
+from pydantic import BaseModel
+>>>>>>> Stashed changes
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -15,6 +21,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+<<<<<<< Updated upstream
 client = AsyncOpenAI(api_key=os.environ["OPENAI_API_KEY"],
                      base_url=os.environ["OPENAI_BASE_URL"])
 
@@ -26,6 +33,19 @@ SUPPORTED_MODELS = [
     "gemma2-9b-it"
 ]
 MODEL_NAME = SUPPORTED_MODELS[0]
+=======
+
+#MODEL_NAME = 'llama3-8b-8192'
+MODEL_NAME = os.getenv('DEFAULT_MODEL')
+client = OpenAI(
+    api_key = os.environ["OPENAI_API_KEY"],
+    base_url = os.environ["OPENAI_BASE_URL"]
+)
+
+class Prompt(BaseModel):
+    id: int
+    prompt: str
+>>>>>>> Stashed changes
 
 app = FastAPI()
 app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
@@ -33,9 +53,15 @@ app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+<<<<<<< Updated upstream
         "http://localhost:5173"
         # "*"
     ],
+=======
+        "http://127.0.0.1:5173",
+        # "*"
+        ],
+>>>>>>> Stashed changes
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -114,6 +140,25 @@ async def chat_completion(request: Request):
 
 @app.get("/")
 async def root():
+<<<<<<< Updated upstream
     return FileResponse('dist/index.html')
     # Use this in case you put index.html in the root directoy
     #return FileResponse('index.html')
+=======
+    return {"message": "Hello from API!"}
+
+@app.post("/chat/")
+async def chat_completion(prompt: Prompt):
+    print('query')
+    return {"message": 'querying...'}
+
+# @app.post("/chat")
+# async def chat_completion(prompt):
+#     chat_completion = client.chat.completions.create(
+#         messages=[{"role": "user","content": prompt}],
+#         model = MODEL_NAME,
+#         # temperature=0.7,
+#         # max_tokens=500,
+#     )
+#     return chat_completion.choices[0].message.content
+>>>>>>> Stashed changes

@@ -1,0 +1,44 @@
+{
+    "title": "SQL Standards Book",
+    "tasks": [
+        {
+            "name": "Research SQL Standards",
+            "description": "Research the current SQL standards and gather information about the different versions and their features.",
+            "taskType": "COMPLEX",
+            "assignedAssistant": "Research Assistant",
+            "prompt": "Research the current SQL standards, including SQL:2011, SQL:2016, and SQL:2019. Gather information about the different versions and their features, including data types, query syntax, and database management system support.",
+            "requiredTools": [
+                "DuckDuckGo",
+                "SerpApi"
+            ],
+            "temperature": "0.7"
+        },
+        {
+            "name": "Organize SQL Standards Information",
+            "description": "Organize the gathered information about SQL standards into a logical structure for the book.",
+            "taskType": "SIMPLE",
+            "assignedAssistant": "Writer Assistant",
+            "prompt": "Organize the gathered information about SQL standards into a logical structure for the book. Create an outline that includes chapters on the history of SQL, SQL syntax, data types, query optimization, and database management system support.",
+            "requiredTools": null,
+            "temperature": "0.5"
+        },
+        {
+            "name": "Write SQL Standards Book Chapters",
+            "description": "Write the chapters for the SQL standards book based on the organized information.",
+            "taskType": "COMPLEX",
+            "assignedAssistant": "Writer Assistant",
+            "prompt": "Write the chapters for the SQL standards book based on the organized information. Each chapter should include a detailed explanation of the SQL standard features, examples, and best practices. Use a clear and concise writing style and include headings, subheadings, and bullet points to make the content easy to read.",
+            "requiredTools": null,
+            "temperature": "0.7"
+        },
+        {
+            "name": "Review and Edit SQL Standards Book",
+            "description": "Review and edit the SQL standards book for accuracy, clarity, and consistency.",
+            "taskType": "SIMPLE",
+            "assignedAssistant": "Writer Assistant",
+            "prompt": "Review and edit the SQL standards book for accuracy, clarity, and consistency. Check for grammar, punctuation, and spelling errors, and ensure that the content is well-organized and easy to follow.",
+            "requiredTools": null,
+            "temperature": "0.5"
+        }
+    ]
+}
